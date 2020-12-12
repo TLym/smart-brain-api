@@ -1,11 +1,16 @@
 const Clarifai = require('clarifai');
 
+// const ClarifyAPIKey = process.env.CLARIFI_API_KEY;
+// console.log(ClarifyAPIKey); 
+
 //You must add your own API key here from Clarifai. 
 const app = new Clarifai.App({
- apiKey: 'YOUR API KEY HERE'
+ apiKey: process.env.CLARIFI_API_KEY
 });
 
 const handleApiCall = (req, res) => {
+  // console.log(req.body.input); 
+
   app.models
     // HEADS UP! Sometimes the Clarifai Models can be down or not working as they are constantly getting updated.
     // A good way to check if the model you are using is up, is to check them on the clarifai website. For example,
@@ -20,7 +25,10 @@ const handleApiCall = (req, res) => {
     .then(data => {
       res.json(data);
     })
-    .catch(err => res.status(400).json('unable to work with API'))
+  .catch(err => {
+    console.log('API Error'); 
+    res.status(400).json('unable to work with API'); 
+  }); 
 }
 
 const handleImage = (req, res, db) => {

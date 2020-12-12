@@ -1,8 +1,8 @@
 const handleRegister = (req, res, db, bcrypt) => {
-  // const { email, name, password } = req.body;
-  const email = String(req.body.email);
-  const name = String(req.body.name);
-  const password = String(req.body.password);
+  const { email, name, password } = req.body;
+  // const email = String(req.body.email);
+  // const name = String(req.body.name);
+  // const password = String(req.body.password);
 
   // console.log(typeof(email), typeof(name), typeof(password)); 
   console.log(email, name, password); 
@@ -22,6 +22,7 @@ const handleRegister = (req, res, db, bcrypt) => {
     })
     .into('login')
     .returning('email')
+    .catch(err => console.log(`unable to add to login table. Error: ${err}`))
     .then(loginEmail => {
       return trx('users')
         .returning('*')

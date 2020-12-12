@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+require('dotenv').config();
 
 const register = require('./controllers/register');
 const signin = require('./controllers/signin');
@@ -13,17 +14,23 @@ const db = knex({
   // connect to your own database here
   client: 'pg',
   connection: {
-    host : '127.0.0.1', //same as local host
-    user : '',
-    password : '',
-    database : 'smart-brain'
+    host : process.env.DB_Host, //same as local host
+    user : process.env.DB_User,
+    password : process.env.DB_Password,
+    database : process.env.DB_Database
   }
 });
 
 
-
 // console.log(db); 
-console.log(db.select().from('login')); 
+// db('login').where('name', 'Trever').select('*')
+//   .then(user => console.log(user));
+// db.select('*').from('login').where({email: 'Trever@gmail.com'})
+//   .then(user => console.log(user)) 
+//   .catch(err => console.log(err)); 
+
+// const ClarifyAPIKey = process.env['CLARIFI_API_KEY']
+// console.log(ClarifyAPIKey); 
 
 
 const app = express();
