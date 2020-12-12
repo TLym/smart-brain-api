@@ -13,12 +13,18 @@ const db = knex({
   // connect to your own database here
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'aneagoie',
+    host : '127.0.0.1', //same as local host
+    user : '',
     password : '',
     database : 'smart-brain'
   }
 });
+
+
+
+// console.log(db); 
+console.log(db.select().from('login')); 
+
 
 const app = express();
 
