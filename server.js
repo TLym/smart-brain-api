@@ -1,8 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt-nodejs');
-const cors = require('cors');
-const knex = require('knex');
+const express = require('express'); //provides the core server functionallity 
+const bodyParser = require('body-parser'); //middleware which helps us get data from the http request
+const bcrypt = require('bcrypt-nodejs'); //cryptographic library 
+const cors = require('cors'); //helps govern which domains can access the server 
+const knex = require('knex'); //ORM which allows us to connect to and query our database
 require('dotenv').config();
 
 const register = require('./controllers/register');
@@ -35,14 +35,14 @@ const db = knex({
 
 const app = express();
 
-app.use(cors())
+app.use(cors()); //currently set to allow any domain access to the server. 
 app.use(bodyParser.json());
 
 app.get('/', (req, res)=> { res.send(db.users) })
 app.post('/signin', signin.handleSignin(db, bcrypt))
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) })
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db)})
-app.put('/image', (req, res) => { image.handleImage(req, res, db)})
+app.put('/image', (req, res) => { image.handleImage(req, res, db)}) //put allows you to make an update 
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res)})
 
 app.listen(3000, ()=> {
