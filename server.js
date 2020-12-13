@@ -22,17 +22,17 @@ const db = knex({
     // host : process.env.POSTGRES_HOST, //same as local host
     // user : process.env.POSTGRES_USER,
     // password : process.env.POSTGRES_PASSWORD,
-    // database : process.env.POSTGRES_DATABASE
+    // database : process.env.POSTGRES_DB
   // }
 });
 
-
+console.log(process.env.POSTGRES_URI);
 // console.log(db); 
 // db('login').where('name', 'Trever').select('*')
 //   .then(user => console.log(user));
-// db.select('*').from('login').where({email: 'Trever@gmail.com'})
-//   .then(user => console.log(user)) 
-//   .catch(err => console.log(err)); 
+db.select('*').from('login') //.where({email: 'Trever@gmail.com'})
+  .then(user => console.log(user)) 
+  .catch(err => console.log(err)); 
 
 // const ClarifyAPIKey = process.env['CLARIFI_API_KEY']
 // console.log(ClarifyAPIKey); 
